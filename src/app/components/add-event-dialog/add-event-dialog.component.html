@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Informacja</h1>
+<div mat-dialog-content id="mat-content">
+  <mat-spinner *ngIf="isSpinner"></mat-spinner>
+  <p *ngIf="isSpinner" style="margin-top: 20px;">Rezerwuje...</p>
+  <i *ngIf="isSpinner == false" style="font-size: 125px; color: #1eb131" class="far fa-check-circle"></i>
+  <p *ngIf="isSpinner == false" style="margin-top: 20px;">Rezerwacja ukończona pomyślnie !</p>
+</div>
+<div mat-dialog-actions *ngIf="isSpinner == false" id="mat-actions">
+    <a mat-raised-button id="button" href="/">Zakończ</a>
+</div>
+

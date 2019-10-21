@@ -1,0 +1,55 @@
+<table class="xunk-calendar" style="margin-bottom: 15px;">
+
+  <!-- Header for changing month -->
+  <tr>
+    <!-- Previous month button -->
+    <th>
+      <button mat-icon-button (click)="changeMonth(-1)" [disabled]="showSpinner == true">
+        <mat-icon><i class="fas fa-angle-double-left" style="font-size: x-large;"></i></mat-icon>
+      </button>
+    </th>
+    <!-- Month label -->
+    <th style="font-size: large;" colspan=5>{{openPage.date}} {{monthNames[openPage.month]}} {{openPage.year}}</th>
+
+    <!-- Next month button -->
+    <th>
+      <button mat-icon-button (click)="changeMonth(1)" [disabled]="showSpinner == true">
+        <mat-icon><i class="fas fa-angle-double-right" style="font-size: x-large;"></i></mat-icon>
+      </button>
+    </th>
+  </tr>
+</table>
+<div *ngIf="showSpinner" style="width: 100%; height: 275px; margin-bottom: 27px;display: flex;
+justify-content: center; align-items: center;">
+  <mat-spinner></mat-spinner>
+</div>
+
+<table *ngIf="showSpinner == false;" mat-table [dataSource]="godzinyOtwarcia" style="width: 100%; margin-bottom: 15px;">
+
+  <ng-container matColumnDef="time">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element" style="padding-left: 0"> {{element.time}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="duzy">
+    <th mat-header-cell *matHeaderCellDef class="xunk-calendar-cell"> Piłka nożna <br>(nawierzchnia kauczukowa) </th>
+    <td mat-cell *matCellDef="let element; let i = index" [attr.rowspan]="arrayAttrDuzy[i]"
+      [style.display]="arrayTest[i] ? 'none' : ''" [ngClass]="{'reservation' : rezDuzyFinal.indexOf(i) !== -1}">
+      {{element.duzy}}
+      <i [ngClass]="{'hidde' : rezDuzyFinal.indexOf(i) !== -1}" id="icon-description" class="fas fa-info"
+        [matTooltip]="tooltipsButtonDuzy[i]" matTooltipPosition="above"></i>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="maly">
+    <th mat-header-cell *matHeaderCellDef class="xunk-calendar-cell"> Siatkówka, koszykówka, tenis <br>(nawierzchnia
+      tartanowa) </th>
+    <td mat-cell *matCellDef="let element; let i = index" style="padding-right: 0" [style.display]="arrayTest2[i] ? 'none' : ''" [attr.rowspan]="arrayAttrMaly[i]" [ngClass]="{'reservation' : rezMalyFinal.indexOf(i) !== -1}"> {{element.maly}} 
+      <i [ngClass]="{'hidde' : rezMalyFinal.indexOf(i) !== -1}" id="icon-description" class="fas fa-info"
+      [matTooltip]="tooltipsButtonMaly[i]" matTooltipPosition="above"></i>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

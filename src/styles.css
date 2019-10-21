@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+button:focus {outline:0;}
+.hero-area .simpleParallax{
+    top: 0;
+    position: absolute;   
+}
+
+.mat-tooltip{
+    font-size: 14px !important;
+    text-align: center;
+}

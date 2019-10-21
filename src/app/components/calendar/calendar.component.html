@@ -1,0 +1,45 @@
+<table class="xunk-calendar">
+  <tr>
+      <!-- Previous month button -->
+      <th style="display: flex;justify-content: center;">
+          <button mat-icon-button (click)="changeMonth(-1)">
+              <mat-icon><i class="fas fa-angle-double-left"></i></mat-icon>
+          </button>
+      </th>
+      <!-- Month label -->
+      <th style="text-align: center; cursor: default" colspan=5>{{monthNames[openPage.month]}} {{openPage.year}}</th>
+
+      <!-- Next month button -->
+      <th style="display: flex;justify-content: center;">
+          <button mat-icon-button (click)="changeMonth(1)">
+              <mat-icon><i class="fas fa-angle-double-right"></i></mat-icon>
+          </button>
+      </th>
+  </tr>
+  <!-- Weekday headers -->
+  <tr id="tr-th" style="color: #aaa; font-size: 10pt; cursor: default">
+      <th>Pon</th>
+      <th>Wto</th>
+      <th>Śro</th>
+      <th>Czw</th>
+      <th>Pią</th>
+      <th>Sob</th>
+      <th>Nie</th>
+  </tr>
+
+  <!-- The real calendar -->
+  <tr *ngFor="let row of calendar">
+      <td class="xunk-calendar-cell" *ngFor="let col of row">
+          <!-- wylacz przycisk jesli otwarta karta jest mniejsza niz dzisiejszy rok, miesiac lub dzien (openPage.date > col && openPage.month == today.month && openPage.year == today.year)-->
+        <button mat-icon-button [disabled]="openPage.year < today.year || (openPage.month != today.month && openPage.year >= today.year) ||
+                (openPage.month == today.month && openPage.year != today.year) || (openPage.date > col && openPage.month == today.month && openPage.year == today.year) ||
+                (openPage.date < col-13 && openPage.month == today.month && openPage.year == today.year) || disableDay(col, openPage.month)"
+                *ngIf="col" class="xunk-calendar-day"
+                [style.backgroundColor]="getHM(col)"
+                [style.color]="getForeground(col)"
+                (click)="selectDay(col)">
+                <span [style.fontWeight]="isToday(col) ? 'bold' : null">{{col}}</span>
+        </button>
+      </td>
+  </tr>
+</table>

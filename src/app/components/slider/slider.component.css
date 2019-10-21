@@ -1,0 +1,33 @@
+
+  ::ng-deep .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+  }
+
+  ::ng-deep .mat-step-header .mat-step-icon-selected {
+    background-color: #1eb131; 
+  }
+
+  ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: #1eb131;
+  }
+
+  .example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+
+  #cdk-step-content-0-2{
+    text-align: center ;
+  }
+
+  button{
+    font-weight: bold;
+  }
+
+

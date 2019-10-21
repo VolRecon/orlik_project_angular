@@ -1,0 +1,36 @@
+table {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+}
+
+td, th {
+    text-align: center !important;
+}
+
+.active {
+    background-color:#1eb131 !important;
+    color: white;
+    position: relative;
+    transition: 0.3s;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+
+.reservation {
+    background-color:#ff2323 !important;
+    position: relative;
+    color: white !important;
+    transition: 0.3s;
+    cursor: default !important;
+    border-radius: 8px;
+    border: 1px solid transparent;
+  }
+
+
+.dezactive {
+    background-color: white;
+    color: black;
+    transition: 0.3s;
+    cursor: pointer;
+}

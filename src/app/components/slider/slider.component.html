@@ -1,0 +1,84 @@
+<mat-horizontal-stepper [linear]="true" #stepper style="margin: 25px auto 0 auto; max-width: 1000px;">
+  <mat-step [stepControl]="firstFormGroup" [completed]="false">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Wybierz dzień miesiąca</ng-template>
+      <app-calendar [selectedDate]="selDate" [heatmap]="heatmap" (change)="dateChanged($event)" heatMapColor="#00ffff"
+        primaryColor="#1eb131" primaryForeground="white">
+      </app-calendar>
+      <div style="text-align: center; padding-top: 10px;">
+        <button mat-raised-button matStepperNext (click)="sendAndTakeData()" style="margin-top: 25px;">Następny</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup" [completed]="false">
+    <form [formGroup]="secondFormGroup"
+      style="display: flex;flex-direction: column;justify-content: center;align-items: center; margin-top: 25px;">
+      <ng-template matStepLabel>Wybierz godziny</ng-template>
+      <mat-spinner *ngIf="showSpinner"></mat-spinner>
+      <app-calendar-days style="width:100%" *ngIf="showSpinner == false" [@myAnimation] [rezerwationsData]="rezData"
+        [clickedMonth]="clickedMonthSend" [Click]="isClick" (rezerwacjaWszystkieSend)="rezerwacjaWszystkie = $event"
+        (tmpCorrectArray)="tmpCorrectArray = $event" (isSelectDuzySend)="isSelectDuzy = $event"
+        (isSelectMalySend)="isSelectMaly = $event"></app-calendar-days>
+      <div style="text-align: center; padding-top: 10px; margin-top: 25px; width: 100%;">
+        <button mat-raised-button matStepperPrevious>Cofnij</button>
+        <button mat-raised-button (click)="move(2)" [disabled]="isSelectMalyVeriable && isSelectDuzyVeriable"
+          (click)="isClickNext()" style="margin-left: 15px;">Następny</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [completed]="false">
+    <ng-template matStepLabel>Finalizacja</ng-template>
+    <h4 style="text-align: center">Dodatkowe dane:</h4>
+
+    <form class="example-form" [formGroup]="finalizationFormGroup" #f="ngForm">
+      <mat-form-field class="example-full-width">
+        <input #name name="name" matInput placeholder="Imię*" formControlName="nameFormControl"
+          [errorStateMatcher]="matcher"
+          pattern="^[a-zA-ZęółśążźćńĘÓŁŚĄŻŹĆŃ]+(([',. -][a-zA-ZęółśążźćńĘÓŁŚĄŻŹĆŃ])?[a-zA-ZęółśążźćńĘÓŁŚĄŻŹĆŃ]*)*$">
+        <mat-hint>Tylko do celów weryfikacyjnych na obiekcie.</mat-hint>
+        <mat-error
+          *ngIf="finalizationFormGroup.controls.nameFormControl.errors?.pattern && !finalizationFormGroup.controls.nameFormControl.errors?.required">
+          Niepoprawne dane !</mat-error>
+        <mat-error *ngIf="finalizationFormGroup.controls.nameFormControl.errors?.required">Imię jest <strong>wymagane
+            !</strong></mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <span matPrefix>+48 &nbsp;</span>
+        <input #telefon matInput placeholder="Telefon kontaktowy*" formControlName="phoneFormControl"
+          [errorStateMatcher]="matcher" pattern="^[0-9]*$">
+        <mat-hint>Kontakt telefoniczny (na wszelki wypadek).</mat-hint>
+        <mat-error
+          *ngIf="finalizationFormGroup.controls.phoneFormControl.errors?.pattern && !finalizationFormGroup.controls.phoneFormControl.errors?.required">
+          Niepoprawne dane !
+        </mat-error>
+        <mat-error *ngIf="finalizationFormGroup.controls.phoneFormControl.errors?.required">Telefon jest
+          <strong>wymagany !</strong></mat-error>
+      </mat-form-field>
+    </form>
+
+    <div class="example-form" style="margin-top: 15px; text-align: center">
+      <mat-form-field class="example-full-width">
+        <mat-label>Wstęp:</mat-label>
+        <mat-select #wstep name="goscinnosc" [(value)]="selected2" [compareWith]="compareItems">
+          <mat-option *ngFor="let goscinnosc of goscinnosci ; let i = index" [value]="goscinnosc.value">
+            {{goscinnosc.viewValue}}
+          </mat-option>
+        </mat-select>
+        <mat-hint>Dla kogo jest wstęp ?</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div style="margin-top: 50px;" class="example-full-width example-form">
+      <h4 style="text-align: center; margin-bottom: 35px;">Twoja rezerwacja:</h4>
+      <p>Dzień: (w trakcie realizacji)</p>
+      <p>Godzina: (w trakcie realizacji)</p>
+      <p>Typ: (w trakcie realizacji)</p>
+    </div>
+    <div style="text-align: center; margin-top: 30px;">
+      <button mat-raised-button matStepperPrevious (click)="isClickNext()">Cofnij</button>
+      <button style="margin-left: 15px" mat-raised-button
+        (click)="addEvent(name.value, telefon.value, wstep.triggerValue)"
+        [disabled]="!finalizationFormGroup.valid">Zarezerwuj termin</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
