@@ -9,13 +9,13 @@
   <!-- duzy Column -->
   <ng-container matColumnDef="duzy">
     <th mat-header-cell *matHeaderCellDef style="text-align: center; cursor: default"> Piłka nożna <br>(nawierzchnia kauczukowa) </th>
-    <td mat-cell *matCellDef="let element; let i = index" (click)="takeValueCol(element, i,'Duzy')" [attr.rowspan]="arrayAttrDuzy[i]" [style.display]="arrayTest[i] ? 'none' : ''" [ngClass]="{'active' : selectedRezDuzy.indexOf(i) !== -1, 'dezactive' : selectedRezDuzy.indexOf(i) === -1, 'reservation' : rezDuzyFinal.indexOf(i) !== -1}"> {{element.duzy}} </td>
+    <td mat-cell *matCellDef="let element; let i = index" (click)="takeValueCol(element, i,'Duze boisko')" [attr.rowspan]="arrayAttrDuzy[i]" [style.display]="arrayTest[i] ? 'none' : ''" [ngClass]="{'active' : selectedRezDuzy.indexOf(i) !== -1, 'dezactive' : selectedRezDuzy.indexOf(i) === -1, 'reservation' : rezDuzyFinal.indexOf(i) !== -1}"> {{element.duzy}} </td>
   </ng-container>
 
   <!-- maly Column -->
   <ng-container matColumnDef="maly">
     <th mat-header-cell *matHeaderCellDef style="text-align: center; cursor: default"> Siatkówka, koszykówka, tenis <br>(nawierzchnia tartanowa) </th>
-    <td mat-cell *matCellDef="let element; let i = index" (click)="takeValueCol(element, i,'Maly')" [attr.rowspan]="arrayAttrMaly[i]" [style.display]="arrayTest2[i] ? 'none' : ''" [ngClass]="{'active' : selectedRezMaly.indexOf(i) !== -1, 'dezactive' : selectedRezMaly.indexOf(i) === -1, 'reservation' : rezMalyFinal.indexOf(i) !== -1}"> {{element.maly}} </td>
+    <td mat-cell *matCellDef="let element; let i = index" (click)="takeValueCol(element, i,'Male boisko')" [attr.rowspan]="arrayAttrMaly[i]" [style.display]="arrayTest2[i] ? 'none' : ''" [ngClass]="{'active' : selectedRezMaly.indexOf(i) !== -1, 'dezactive' : selectedRezMaly.indexOf(i) === -1, 'reservation' : rezMalyFinal.indexOf(i) !== -1}"> {{element.maly}} </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

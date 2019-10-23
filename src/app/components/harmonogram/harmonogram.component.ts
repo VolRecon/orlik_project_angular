@@ -129,11 +129,13 @@ export class HarmonogramComponent implements OnInit {
       this.openPage.month += diff;
       numOfDays = Number(this.getDaysOfMonth(this.openPage.month, this.openPage.year));
       this.openPage.date = numOfDays;
-      this.showHarmonogram();
+      let splits: string[] = this.ELEMENT_DATA_BLOCK[this.openPage.month].godziny.split(' ', 3);
+      this.checkOpenHour(splits);
     } else if (this.openPage.date > numOfDays) {
       this.openPage.month += diff;
       this.openPage.date = 1;
-      this.showHarmonogram();
+      let splits: string[] = this.ELEMENT_DATA_BLOCK[this.openPage.month].godziny.split(' ', 3);
+      this.checkOpenHour(splits);
     }
 
     // pobierz rezerwacje z konkretnego dnia
@@ -167,25 +169,20 @@ export class HarmonogramComponent implements OnInit {
     return ((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0);
   }
 
-  showHarmonogram() {
-    let splits = this.ELEMENT_DATA_BLOCK[this.openPage.month].godziny.split(' ', 3);
-    let splitsElements: any = [];
+  checkOpenHour(splits) {
     this.godzinyOtwarcia = [];
 
-    for (let element of this.ELEMENT_DATA) {
-      splitsElements.push(element.time.split(' ', 3));
-    }
-
-    for (let i = 0; i < splitsElements.length; i++) {
-      if (splitsElements[i][0] == splits[0]) {
-        this.godzinyOtwarcia.push(i)
-      } else if (splitsElements[i][2] == splits[2]) {
-        this.godzinyOtwarcia.push(i)
+    this.ELEMENT_DATA.forEach((data, index) =>{
+      if(data.time.split(' ', 3)[0] == splits[0]){
+        this.godzinyOtwarcia.push(index)
+      } else if(data.time.split(' ', 3)[0] == splits[2]){
+        this.godzinyOtwarcia.push(index-1)
       }
-    }
+    })
 
     //uzupelniamy liczby 
-    let converter: any = []
+    let converter: number[] = []
+ 
     for (let i = this.godzinyOtwarcia[0]; i <= this.godzinyOtwarcia[1]; i++) {
       converter.push(i)
     }
@@ -200,6 +197,8 @@ export class HarmonogramComponent implements OnInit {
         }
       }
     }
+
+    return this.godzinyOtwarcia;
   }
 
   ngOnInit() {
@@ -229,7 +228,8 @@ export class HarmonogramComponent implements OnInit {
       this.arrayTest2 = data.arrayTest2;
     })
 
-    this.showHarmonogram();
+    let splits: string[] = this.ELEMENT_DATA_BLOCK[this.openPage.month].godziny.split(' ', 3);
+    this.checkOpenHour(splits);
   }
 }
 

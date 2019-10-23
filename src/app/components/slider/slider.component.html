@@ -21,7 +21,7 @@
         (isSelectMalySend)="isSelectMaly = $event"></app-calendar-days>
       <div style="text-align: center; padding-top: 10px; margin-top: 25px; width: 100%;">
         <button mat-raised-button matStepperPrevious>Cofnij</button>
-        <button mat-raised-button (click)="move(2)" [disabled]="isSelectMalyVeriable && isSelectDuzyVeriable"
+        <button mat-raised-button (click)="move(2)" [disabled]="isSelectMaly && isSelectDuzy"
           (click)="isClickNext()" style="margin-left: 15px;">Następny</button>
       </div>
     </form>
