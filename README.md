@@ -1,6 +1,6 @@
 # OrlikProject
 
-❮img src="images/Github1.png" width="1280"❯
+❮img src="images/Github1.png"❯
 
 
 
