@@ -132,7 +132,7 @@ export class CalendarDaysComponent implements OnInit {
         if (selectedRez.length == 0 ? isSelectSend.emit(true) : isSelectSend.emit(false)) { }
       } else {
         selectedRez.splice(selectedRez.indexOf(i), 1)
-        if (value == "Duze boisko" ? godzinyOtwarcia[i].duzy = "Chcę zarezerwować" : godzinyOtwarcia[i].maly = "Chcę zarezerwować") { }
+        if (value == "Duze boisko" ? godzinyOtwarcia[i].duzy = "Termin wolny" : godzinyOtwarcia[i].maly = "Termin wolny") { }
         if (selectedRez.length == 0 ? isSelectSend.emit(true) : isSelectSend.emit(false)) { }
       }
     }
@@ -145,11 +145,11 @@ export class CalendarDaysComponent implements OnInit {
     if (value == "Duze boisko" ? event.duzy == "Chcę zarezerwować" : event.maly == "Chcę zarezerwować") {
       // 1 - kliknieto kolumne o indeksie 1
       if (rezerwacja.includes(i) === false) {
-        rezerwacja.push(i);
+        rezerwacja.push(+(this.harmonogram.ELEMENT_DATA[i].time.split(':', 3)[0]));
         if (value == "Duze boisko" ? this.rezerwacjaWszystkie[0] = data : this.rezerwacjaWszystkie[1] = data) { }
       }
     } else {
-      rezerwacja.splice(rezerwacja.indexOf(i), 1);
+      rezerwacja.splice(rezerwacja.indexOf(this.harmonogram.ELEMENT_DATA[i].time.split(':', 3)[0]), 1);
     }
   }
 

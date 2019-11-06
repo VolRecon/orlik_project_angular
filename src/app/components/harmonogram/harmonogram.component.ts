@@ -65,7 +65,7 @@ export class HarmonogramComponent implements OnInit {
     { miesiac: "Sierpień", godziny: '17:00 - 21:00' },
     { miesiac: "Wrzesień", godziny: '17:00 - 21:00' },
     { miesiac: "Październik", godziny: '16:00 - 21:00' },
-    { miesiac: "Listopad", godziny: '18:00 - 20:00' },
+    { miesiac: "Listopad", godziny: '16:00 - 21:00' },
     { miesiac: "Grudzień", godziny: '18:00 - 20:00' }
   ];
 
