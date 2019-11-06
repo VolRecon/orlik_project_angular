@@ -1,5 +1,10 @@
 # OrlikProject
 
+<img src="images/Github1.png">
+<img src="images/Github2.PNG">
+<img src="images/Github3.PNG">
+<img src="images/Github4.PNG">
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.9.
 
 ## Development server
