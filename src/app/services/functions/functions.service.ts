@@ -26,6 +26,23 @@ constructor() { }
     return this.dataSend.asObservable();
   }
 
+  /*Add zero number when data is greater than 9*/ 
+  addZero(num, size) {
+    var s = num + "";
+    while (s.length < size) s = "0" + s;
+    return s;
+  }
+
+  /* Get today's date */
+  getToday(): any {
+    const dateNow = new Date();
+    return {
+      date: dateNow.getDate(),
+      month: dateNow.getMonth(),
+      year: dateNow.getFullYear()
+    };
+  }
+
   showRezerwation(post, godzinyOtw) {
 
     this.data.tooltipsButtonDuzy = [];

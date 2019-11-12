@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FunctionsService } from 'src/app/services/functions/functions.service';
 
 // orlik nieczynny w wymienione niżej dni
 const ZAMKNIETE: Zamkniete[] = [
@@ -67,10 +68,10 @@ export class CalendarComponent implements OnInit {
         'Thrusday', 'Friday', 'Saturday'
       ];
 
-    constructor() {
+    constructor(private functionsService: FunctionsService) {
       /* Initialize */
       this.calendar = [];
-      this.today = CalendarComponent.getToday();
+      this.today = this.functionsService.getToday();
       this.openPage = {...this.today};
       this.selectedDate = {...this.today};
     }
@@ -88,16 +89,6 @@ export class CalendarComponent implements OnInit {
       } else {
         throw new Error('Color ' + input + ' could not be parsed.');
       }
-    }
-
-    /* Get today's date */
-    public static getToday(): any {
-      const dateNow = new Date();
-      return {
-        date: dateNow.getDate(),
-        month: dateNow.getMonth(),
-        year: dateNow.getFullYear()
-      };
     }
 
     /** Pad number with zeros */

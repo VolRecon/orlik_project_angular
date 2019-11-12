@@ -76,7 +76,7 @@ export class SliderComponent implements OnInit {
   selected2 = this.goscinnosci[0].viewValue;
   @ViewChild('stepper') stepper: MatStepper;
 
-  constructor(private _formBuilder: FormBuilder, public nodeService: NodeService, public dialog: MatDialog,
+  constructor(private _formBuilder: FormBuilder, private nodeService: NodeService, public dialog: MatDialog,
     private AddEventDialogService: AddEventDialogService, private functionsService: FunctionsService,
     private harmonogram: HarmonogramComponent) { }
 
@@ -101,17 +101,11 @@ export class SliderComponent implements OnInit {
   /** Log changes in date */
   dateChanged(data: any) {
     this.minMax = {
-      min: (data.year + "-" + this.addZero(data.month + 1, 2) + "-" + this.addZero(data.date, 2) + "T" + "14:00:00.000Z"),
-      max: (data.year + "-" + this.addZero(data.month + 1, 2) + "-" + this.addZero(data.date, 2) + "T" + "22:00:00.000Z")
+      min: (data.year + "-" + this.functionsService.addZero(data.month + 1, 2) + "-" + this.functionsService.addZero(data.date, 2) + "T" + "14:00:00.000Z"),
+      max: (data.year + "-" + this.functionsService.addZero(data.month + 1, 2) + "-" + this.functionsService.addZero(data.date, 2) + "T" + "22:00:00.000Z")
     }
 
-    this.clikedDay = data.year + "-" + this.addZero(data.month + 1, 2) + "-" + this.addZero(data.date, 2)
-  }
-
-  addZero(num, size) {
-    var s = num + "";
-    while (s.length < size) s = "0" + s;
-    return s;
+    this.clikedDay = data.year + "-" + this.functionsService.addZero(data.month + 1, 2) + "-" + this.functionsService.addZero(data.date, 2)
   }
 
   //kiedy przycisk "Nastepny" zostanie klikniety, pobierz dane o rezerwacji z tego dnia
@@ -160,6 +154,9 @@ export class SliderComponent implements OnInit {
     this.nodeService.addEvent(data).subscribe(result => {
       this.spinnerDialog = false;
       this.AddEventDialogService.updateResult(this.spinnerDialog);
+      console.log(result)
+    }, error => {
+        console.log("Bład podczas dodawania eventu !")
     });
   }
 

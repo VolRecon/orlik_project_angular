@@ -77,23 +77,7 @@ export class HarmonogramComponent implements OnInit {
       'Wrzesień', 'Październik', 'Listopad', 'Grudzień'
     ];
 
-  constructor(public nodeService: NodeService, private functionsService: FunctionsService) { }
-
-  /* Get today's date */
-  getToday(): any {
-    const dateNow = new Date();
-    return {
-      date: dateNow.getDate(),
-      month: dateNow.getMonth(),
-      year: dateNow.getFullYear()
-    };
-  }
-
-  addZero(num, size) {
-    var s = num + "";
-    while (s.length < size) s = "0" + s;
-    return s;
-  }
+  constructor(private nodeService: NodeService, private functionsService: FunctionsService) { }
 
   /** Change the month +1 or -1 */
   changeMonth(diff: number) {
@@ -140,8 +124,8 @@ export class HarmonogramComponent implements OnInit {
 
     // pobierz rezerwacje z konkretnego dnia
     this.minMax = {
-      min: (this.openPage.year + "-" + this.addZero(this.openPage.month + 1, 2) + "-" + this.openPage.date + "T" + "14:00:00.000Z"),
-      max: (this.openPage.year + "-" + this.addZero(this.openPage.month + 1, 2) + "-" + this.openPage.date + "T" + "22:00:00.000Z")
+      min: (this.openPage.year + "-" + this.functionsService.addZero(this.openPage.month + 1, 2) + "-" + this.openPage.date + "T" + "14:00:00.000Z"),
+      max: (this.openPage.year + "-" + this.functionsService.addZero(this.openPage.month + 1, 2) + "-" + this.openPage.date + "T" + "22:00:00.000Z")
     }
 
     // wyświetl rezerwacje jeśli istnieją
@@ -203,18 +187,20 @@ export class HarmonogramComponent implements OnInit {
 
   ngOnInit() {
     this.calendar = [];
-    this.today = this.getToday();
+    this.today = this.functionsService.getToday();
     this.openPage = { ...this.today };
     this.selectedDate = { ...this.today };
     this.showSpinner = true;
     this.minMax = {
-      min: (this.getToday().year + "-" + this.addZero(this.getToday().month + 1, 2) + "-" + this.getToday().date + "T" + "14:00:00.000Z"),
-      max: (this.getToday().year + "-" + this.addZero(this.getToday().month + 1, 2) + "-" + this.getToday().date + "T" + "22:00:00.000Z")
+      min: (this.functionsService.getToday().year + "-" + this.functionsService.addZero(this.functionsService.getToday().month + 1, 2) + "-" + this.functionsService.getToday().date + "T" + "14:00:00.000Z"),
+      max: (this.functionsService.getToday().year + "-" + this.functionsService.addZero(this.functionsService.getToday().month + 1, 2) + "-" + this.functionsService.getToday().date + "T" + "22:00:00.000Z")
     }
 
     this.nodeService.sendToAPIData(this.minMax).subscribe(post => {
       this.functionsService.showRezerwation(post, this.godzinyOtwarcia);
       this.showSpinner = false;
+    }, error => {
+        console.log("Problem z połączeniem i pobraniem danych")
     });
 
     this.functionsService.getData().subscribe(data => {
