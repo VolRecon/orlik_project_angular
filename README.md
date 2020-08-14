@@ -1,4 +1,6 @@
-# OrlikProject
+# OrlikProject [w dużej przebudowie i poprawkach]
+
+
 
 <img src="images/Github1.png">
 <img src="images/Github2.PNG">
